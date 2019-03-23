@@ -10,7 +10,7 @@ import UIKit
 import AVKit
 
 class CameraController: UIViewController, AVCapturePhotoCaptureDelegate  {
-    
+
     static let sharedInstance = CameraController()
 
     var captureSession = AVCaptureSession()
@@ -24,10 +24,18 @@ class CameraController: UIViewController, AVCapturePhotoCaptureDelegate  {
     var flashMode = AVCaptureDevice.FlashMode.off
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Show the navigation bar on other view controllers
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     @objc func  captureImage() {
         let settings = AVCapturePhotoSettings()
-        photoOutput?.capturePhoto(with: settings, delegate: self)    }
-    
+        self.photoOutput?.capturePhoto(with: settings, delegate: self)
+        
+    }
     
     //MARK: Setting up the camera
     func startCaptureSession() {

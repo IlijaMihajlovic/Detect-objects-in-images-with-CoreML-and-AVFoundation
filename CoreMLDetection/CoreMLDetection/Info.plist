@@ -4,14 +4,6 @@
 <dict>
 	<key></key>
 	<string></string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Needs access to phot library so i can save photos</string>
-	<key>NSAppleEventsUsageDescription</key>
-	<string></string>
-	<key>NSCameraUsageDescription</key>
-	<string>phtooo</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Can we acsess photos</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -30,10 +22,16 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>phtooo</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Needs access to phot library so i can save photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Can we acsess photos</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -41,8 +39,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

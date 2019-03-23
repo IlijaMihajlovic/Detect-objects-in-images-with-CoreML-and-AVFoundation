@@ -8,21 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		24C0BF0A2243DBD7001FE764 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C0BF092243DBD7001FE764 /* AppDelegate.swift */; };
-		24C0BF0C2243DBD7001FE764 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C0BF0B2243DBD7001FE764 /* ViewController.swift */; };
-		24C0BF0F2243DBD7001FE764 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24C0BF0D2243DBD7001FE764 /* Main.storyboard */; };
+		24C0BF0C2243DBD7001FE764 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C0BF0B2243DBD7001FE764 /* MainVC.swift */; };
 		24C0BF112243DBD9001FE764 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C0BF102243DBD9001FE764 /* Assets.xcassets */; };
 		24C0BF142243DBD9001FE764 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24C0BF122243DBD9001FE764 /* LaunchScreen.storyboard */; };
 		24C0BF1C2243DD0D001FE764 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C0BF1B2243DD0D001FE764 /* Extension.swift */; };
 		24C0BF1E2243DD61001FE764 /* RoundedShadowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C0BF1D2243DD61001FE764 /* RoundedShadowImageView.swift */; };
 		24FC0E6B2244ED050070AF3D /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC0E6A2244ED050070AF3D /* CameraController.swift */; };
 		24FC0E6D2245278F0070AF3D /* ScaledHeightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC0E6C2245278F0070AF3D /* ScaledHeightImageView.swift */; };
+		24FDEA3E22465E3C00598976 /* PresentImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FDEA3D22465E3C00598976 /* PresentImageVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		24C0BF062243DBD7001FE764 /* CoreMLDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMLDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C0BF092243DBD7001FE764 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		24C0BF0B2243DBD7001FE764 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		24C0BF0E2243DBD7001FE764 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		24C0BF0B2243DBD7001FE764 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		24C0BF102243DBD9001FE764 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		24C0BF132243DBD9001FE764 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24C0BF152243DBD9001FE764 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -30,6 +29,7 @@
 		24C0BF1D2243DD61001FE764 /* RoundedShadowImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowImageView.swift; sourceTree = "<group>"; };
 		24FC0E6A2244ED050070AF3D /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		24FC0E6C2245278F0070AF3D /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
+		24FDEA3D22465E3C00598976 /* PresentImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentImageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,6 @@
 				24C0BF1F2243DD7F001FE764 /* View */,
 				24FC0E6E224535340070AF3D /* Controller */,
 				24C0BF092243DBD7001FE764 /* AppDelegate.swift */,
-				24C0BF0D2243DBD7001FE764 /* Main.storyboard */,
 				24C0BF102243DBD9001FE764 /* Assets.xcassets */,
 				24C0BF122243DBD9001FE764 /* LaunchScreen.storyboard */,
 				24C0BF152243DBD9001FE764 /* Info.plist */,
@@ -87,7 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				24FC0E6A2244ED050070AF3D /* CameraController.swift */,
-				24C0BF0B2243DBD7001FE764 /* ViewController.swift */,
+				24C0BF0B2243DBD7001FE764 /* MainVC.swift */,
+				24FDEA3D22465E3C00598976 /* PresentImageVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -160,7 +160,6 @@
 			files = (
 				24C0BF142243DBD9001FE764 /* LaunchScreen.storyboard in Resources */,
 				24C0BF112243DBD9001FE764 /* Assets.xcassets in Resources */,
-				24C0BF0F2243DBD7001FE764 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,9 +171,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				24C0BF1E2243DD61001FE764 /* RoundedShadowImageView.swift in Sources */,
+				24FDEA3E22465E3C00598976 /* PresentImageVC.swift in Sources */,
 				24FC0E6D2245278F0070AF3D /* ScaledHeightImageView.swift in Sources */,
 				24C0BF1C2243DD0D001FE764 /* Extension.swift in Sources */,
-				24C0BF0C2243DBD7001FE764 /* ViewController.swift in Sources */,
+				24C0BF0C2243DBD7001FE764 /* MainVC.swift in Sources */,
 				24C0BF0A2243DBD7001FE764 /* AppDelegate.swift in Sources */,
 				24FC0E6B2244ED050070AF3D /* CameraController.swift in Sources */,
 			);
@@ -183,14 +183,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		24C0BF0D2243DBD7001FE764 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				24C0BF0E2243DBD7001FE764 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		24C0BF122243DBD9001FE764 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

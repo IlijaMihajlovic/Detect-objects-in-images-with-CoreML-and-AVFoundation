@@ -45,12 +45,16 @@ extension UIView {
 
 extension UIView {
     
-    func animate() {
-        UIView.animate(withDuration: 0.2, animations: { self.transform = CGAffineTransform(scaleX: 0.978, y: 0.98)},completion: { finish in
-            UIView.animate(withDuration: 0.2, animations: { self.transform = CGAffineTransform.identity})
-        })
+    func popUpAnimation() {
+        self.transform = self.transform.scaledBy(x: 0.001, y: 0.001)
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.3, options: .curveEaseInOut, animations: {
+            self.transform = CGAffineTransform.identity.scaledBy(x: 1.0, y: 1.0)}, completion: nil)
+        }
     }
-}
+
+
+
+
 
 
 
