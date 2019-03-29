@@ -9,10 +9,10 @@
 import UIKit
 import AVKit
 
-class MainVC: UIViewController {
+class MainVC: UIViewController, UIGestureRecognizerDelegate {
     
     var photoData: Data?
-    let sharedController = CameraController()
+    let sharedcameraController = CameraController()
     var imagePicker: UIImagePickerController?
     
     
@@ -23,12 +23,9 @@ class MainVC: UIViewController {
         myView.layer.zPosition = 0
         myView.translatesAutoresizingMaskIntoConstraints = false
         return myView
-        
-        
-        
     }()
     
-    private var captureImageView: UIImageView = {
+    lazy var captureImageView: UIImageView = {
         var captureImage = ScaledHeightImageView()
         captureImage.backgroundColor = .red
         captureImage.clipsToBounds = true
@@ -39,64 +36,77 @@ class MainVC: UIViewController {
     }()
     
     
-    private var customToolbar: UIView = {
-        var customView = UIView()
-        customView.backgroundColor = .customGreyColor()
+    private var customToolBar: UIView = {
+        var cv = UIView()
+        cv.backgroundColor = .lightGray
+        cv.layer.zPosition = 3
+        cv.translatesAutoresizingMaskIntoConstraints = false
         
-        customView.layer.zPosition = 2
-        customView.translatesAutoresizingMaskIntoConstraints = false
-        return customView
+        return cv
     }()
     
+
     
-    private var accessPhotoLibrary: UIButton = {
-        var button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "photo"), for: .normal)
+    
+    private var accessPhotoLibrary: HighlightedButton = {
+        var button = HighlightedButton()
+        button.setImage(UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.layer.zPosition = 3
+        button.tintColor = .black
         button.addTarget(self, action: #selector(pickImage(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
- 
     
-    private var cameraButton: UIButton = {
-        var button = UIButton(type: .custom)
+    private var cameraButton: HighlightedButton = {
+        var button = HighlightedButton()
         
-        button.setImage(UIImage(named: "camera"), for: .normal)
+        button.setImage(UIImage(named: "camera")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.layer.zPosition = 3
+        button.tintColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
-
+        return button
+    }()
+    
+    private var toggleFlashButton: HighlightedButton = {
+        var button = HighlightedButton()
+        button.setImage(UIImage(named: "flashOff")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.layer.zPosition = 3
+        button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(toggleFlash), for: .touchUpInside)
+       
         return button
     }()
     
     
-
-    
-    private var savePhotoToAlbum: UIButton = {
-        var button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "save"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+    private var savePhotoToAlbum: HighlightedButton = {
+        var button = HighlightedButton()
+        button.setImage(UIImage(named: "save")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.layer.zPosition = 3
-        
-        
-        button.addTarget(self, action: #selector(saveImagetoPhotAlbum), for: .touchDown)
+        button.tintColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(saveImagetoPhotAlbum), for: .touchUpInside)
         return button
         
     }()
     
+ 
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Hide the navigation bar on the this view controller
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        sharedController.cameraPreviewLayer?.frame = mainCameraView.bounds
+        sharedcameraController.cameraPreviewLayer?.frame = mainCameraView.bounds
         
     }
     
@@ -114,29 +124,23 @@ class MainVC: UIViewController {
         addSubview()
         setupConstraints()
         
-      
+        
+        
         
         DispatchQueue(label: "prepare").async {
-            self.sharedController.startCaptureSession()
-            self.sharedController.setupDevice()
-            self.sharedController.setupInputOutput()
-            self.sharedController.setupPreviewLayer()
-            self.sharedController.startRunningCaptureSession()
-            
-            
-            
-           
+            self.sharedcameraController.startCaptureSession()
+            self.sharedcameraController.setupDevice()
+            self.sharedcameraController.setupInputOutput()
+            self.sharedcameraController.setupPreviewLayer()
+            self.sharedcameraController.startRunningCaptureSession()
         }
         
     }
     
-    
+  
     
     @objc func captureImage(_ sender: UIButton) {
-        sharedController.captureImage()
-        
-        let presentImageVC = PresentImageVC()
-        navigationController?.pushViewController(presentImageVC, animated: true)
+        sharedcameraController.captureImage()
         
         //Hides the image after two seconds
 //        if captureImageView.isHidden == false  {
@@ -153,6 +157,17 @@ class MainVC: UIViewController {
        sender.popUpAnimation()
  }
     
+    @objc func toggleFlash() {
+        if sharedcameraController.flashMode == .on {
+            sharedcameraController.flashMode = .off
+            toggleFlashButton.setImage(UIImage(named: "flashOff"), for: .normal)
+        }
+        else {
+            sharedcameraController.flashMode = .on
+            toggleFlashButton.setImage(UIImage(named: "flashOn"), for: .normal)
+        }
+    }
+    
     func showAlertWith(title: String, message: String){
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
@@ -161,12 +176,13 @@ class MainVC: UIViewController {
     
     @objc fileprivate func saveImagetoPhotAlbum(_ sender: UIButton) {
         sender.popUpAnimation()
-        guard let selectedImage = captureImageView.image else {
-            showAlertWith(title: "Error", message: "You Need To First Taka a Photo or Chose One From Libary")
+        guard let selectedImage = captureImageView.image  else {
+            showAlertWith(title: "Error", message: "You Need To First Taka a Photo")
             return
         }
         
         UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+       
     }
     
     
@@ -181,50 +197,48 @@ class MainVC: UIViewController {
         }
     }
     
-    
-    @objc func toggleFlash() {
-        if sharedController.flashMode == .on {
-            sharedController.flashMode = .off
-            //toggleFlashButton.setBackgroundImage(#imageLiteral(resourceName: "recordButton"), for: .normal, barMetrics: .default)
-        } else {
-            sharedController.flashMode = .on
-            //toggleFlashButton.setBackgroundImage(#imageLiteral(resourceName: "recordButton"), for: .normal, barMetrics: .default)    }
-        }
-    }
+ 
     
     
     
     
     fileprivate func addSubview() {
-        [customToolbar,mainCameraView, captureImageView, savePhotoToAlbum, accessPhotoLibrary, cameraButton].forEach{view.addSubview($0)}
+        [customToolBar,mainCameraView, captureImageView, savePhotoToAlbum, accessPhotoLibrary, cameraButton, toggleFlashButton].forEach{view.addSubview($0)}
     }
+    
+  
     
     
     fileprivate func setupConstraints() {
         
         mainCameraView.anchor(top: view.topAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor)
-        
-        
-        
-        customToolbar.anchor(top: nil, bottom: view.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, size: .init(width: 0, height: 50))
-        
-        
+
+
+
         captureImageView.anchor(top: nil, bottom: nil, leading: nil, trailing: nil, size: .init(width: 300, height: 350))
-        
+
         captureImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         captureImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        savePhotoToAlbum.anchor(top: customToolbar.topAnchor, bottom: customToolbar.bottomAnchor, leading: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 5, right: 0), size: .init(width: 40, height: 40))
+        customToolBar.anchor(top: nil, bottom: view.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, size: .init(width: 0, height: 60))
+
+
+
+                savePhotoToAlbum.anchor(top: customToolBar.topAnchor, bottom: customToolBar.bottomAnchor, leading: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 5, right: 0), size: .init(width: 40, height: 40))
+
+                savePhotoToAlbum.centerXAnchor.constraint(equalTo: customToolBar.centerXAnchor).isActive = true
+               savePhotoToAlbum.centerYAnchor.constraint(equalTo: customToolBar.centerYAnchor).isActive = true
+
+                accessPhotoLibrary.anchor(top: nil, bottom: customToolBar.bottomAnchor, leading: nil, trailing: customToolBar.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 5, right: 5), size: .init(width: 40, height: 40))
+
+
+                cameraButton.anchor(top: customToolBar.topAnchor, bottom: customToolBar.bottomAnchor, leading: customToolBar.leadingAnchor, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 0 ), size: .init(width: 40, height: 40))
+
+
+                toggleFlashButton.anchor(top: customToolBar.topAnchor, bottom: customToolBar.bottomAnchor, leading: savePhotoToAlbum.trailingAnchor, trailing:accessPhotoLibrary.leadingAnchor, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: 60, height: 60))
         
-        savePhotoToAlbum.centerXAnchor.constraint(equalTo: customToolbar.centerXAnchor).isActive = true
-        savePhotoToAlbum.centerYAnchor.constraint(equalTo: customToolbar.centerYAnchor).isActive = true
-        
-        accessPhotoLibrary.anchor(top: nil, bottom: customToolbar.bottomAnchor, leading: nil, trailing: customToolbar.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 5, right: 5), size: .init(width: 40, height: 40))
-        
-        
-        cameraButton.anchor(top: customToolbar.topAnchor, bottom: customToolbar.bottomAnchor, leading: customToolbar.leadingAnchor, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 0 ), size: .init(width: 40, height: 40))
+       
     }
-    
 }
 
 extension MainVC: AVCapturePhotoCaptureDelegate {
@@ -255,6 +269,7 @@ extension MainVC: UIImagePickerControllerDelegate, UINavigationControllerDelegat
             imagePicker.allowsEditing = true
             
             present(imagePicker, animated: true, completion: nil)
+            
         }
     }
     
@@ -262,12 +277,17 @@ extension MainVC: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     //User has picked an image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
        
+        let presentimage = PresentImageVC()
+        
         if let pickedImage = info[.originalImage] as? UIImage {
-            self.captureImageView.contentMode = .scaleToFill
-            self.captureImageView.image = pickedImage
-            self.captureImageView.popUpAnimation()
+            presentimage.captureImageViewPresenImage.contentMode = .scaleToFill
+            presentimage.captureImageViewPresenImage.image = pickedImage
+            presentimage.captureImageViewPresenImage.popUpAnimation()
            
         }
+        self.navigationController?.pushViewController(presentimage, animated: true)
+       
+        
         //Hides the image after two seconds
 //        if captureImageView.isHidden == false  {
 //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {

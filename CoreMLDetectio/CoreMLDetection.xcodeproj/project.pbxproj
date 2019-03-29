@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2402DF52224D3A5300BA0F37 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2402DF51224D3A5300BA0F37 /* HighlightedButton.swift */; };
 		24C0BF0A2243DBD7001FE764 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C0BF092243DBD7001FE764 /* AppDelegate.swift */; };
 		24C0BF0C2243DBD7001FE764 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C0BF0B2243DBD7001FE764 /* MainVC.swift */; };
 		24C0BF112243DBD9001FE764 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C0BF102243DBD9001FE764 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2402DF51224D3A5300BA0F37 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		24C0BF062243DBD7001FE764 /* CoreMLDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMLDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C0BF092243DBD7001FE764 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C0BF0B2243DBD7001FE764 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -65,7 +67,6 @@
 				24FC0E6F224535860070AF3D /* Extension */,
 				24C0BF1F2243DD7F001FE764 /* View */,
 				24FC0E6E224535340070AF3D /* Controller */,
-				24C0BF092243DBD7001FE764 /* AppDelegate.swift */,
 				24C0BF102243DBD9001FE764 /* Assets.xcassets */,
 				24C0BF122243DBD9001FE764 /* LaunchScreen.storyboard */,
 				24C0BF152243DBD9001FE764 /* Info.plist */,
@@ -76,6 +77,7 @@
 		24C0BF1F2243DD7F001FE764 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2402DF51224D3A5300BA0F37 /* HighlightedButton.swift */,
 				24FC0E6C2245278F0070AF3D /* ScaledHeightImageView.swift */,
 				24C0BF1D2243DD61001FE764 /* RoundedShadowImageView.swift */,
 			);
@@ -88,6 +90,7 @@
 				24FC0E6A2244ED050070AF3D /* CameraController.swift */,
 				24C0BF0B2243DBD7001FE764 /* MainVC.swift */,
 				24FDEA3D22465E3C00598976 /* PresentImageVC.swift */,
+				24C0BF092243DBD7001FE764 /* AppDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				24C0BF0C2243DBD7001FE764 /* MainVC.swift in Sources */,
 				24C0BF0A2243DBD7001FE764 /* AppDelegate.swift in Sources */,
 				24FC0E6B2244ED050070AF3D /* CameraController.swift in Sources */,
+				2402DF52224D3A5300BA0F37 /* HighlightedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
